@@ -38,7 +38,7 @@ namespace QuanLyNV
 
             // Đăng ký AppDbContext, sử dụng kết nối đến MS SQL Server
             services.AddDbContext<AppDbContext>(options => {
-                string connectstring = Configuration.GetConnectionString("MyBlogContext");
+                string connectstring = Configuration.GetConnectionString("MyContext");
                 options.UseSqlServer(connectstring);
             });
             // Đăng ký các dịch vụ của Identity
