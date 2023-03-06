@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using AutoMapper;
 
 namespace Album.Areas.Identity.Pages.Account.Manage {
+
     [Authorize]
     public partial class IndexModel : PageModel {
         [BindProperty]
@@ -127,6 +128,7 @@ namespace Album.Areas.Identity.Pages.Account.Manage {
             user.Address = userDto.Address;
             user.Birthday = userDto.Birthday;
             user.FullName = userDto.FullName;
+            user.Gender = userDto.Gender;
             
             await _userManager.UpdateAsync(user);
 

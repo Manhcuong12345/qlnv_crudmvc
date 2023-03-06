@@ -16,6 +16,11 @@ namespace QuanLyNV.Models {
 
         [DataType (DataType.Date)]
         public DateTime? Birthday { set; get; }
+
+        //khong đúng kiểu dữ liệu nếu dữ liệu đã có string và ta updatedatabase sẽ báo lỗi
+        //Trường hợp khác nó sẽ drop cái khai báo string và thay thế thành boolean khi đó lưu vào database sẽ đúng
+        public string Gender { set; get; }
+
     }
 
 }

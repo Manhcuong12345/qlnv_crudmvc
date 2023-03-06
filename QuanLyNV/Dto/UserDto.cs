@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 public class UserDto
 { 
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     [BindProperty]
     [Display(Name = "Tên tài khoản")]
@@ -33,6 +33,10 @@ public class UserDto
     // [ModelBinder(BinderType=typeof(DayMonthYearBinder))]
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime? Birthday { set; get; }
+
+    [BindProperty]
+    [Display(Name = "Giới tính")]
+    public string Gender { set; get; }
 
 }
 
