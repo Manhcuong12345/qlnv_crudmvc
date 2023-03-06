@@ -1,0 +1,61 @@
+@page "/register/"
+@model RegisterModel
+@{
+    ViewData["Title"] = "ĐĂNG KÝ TÀI KHOẢN";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4>Điền thông tin để tạo tài khoản mới.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="register.UserName"></label>
+                <input asp-for="register.UserName" class="form-control" />
+                <span asp-validation-for="register.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="register.Email"></label>
+                <input asp-for="register.Email" class="form-control" />
+                <span asp-validation-for="register.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="register.Password"></label>
+                <input asp-for="register.Password" class="form-control" />
+                <span asp-validation-for="register.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="register.ConfirmPassword"></label>
+                <input asp-for="register.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="register.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        @if ((Model.ExternalLogins?.Count ?? 0) != 0)
+        {
+            <section>
+                <h4>Sử dụng dịch vụ bên thứ 3</h4>
+                <hr />
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                </form>
+            </section>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

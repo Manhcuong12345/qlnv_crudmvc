@@ -1,0 +1,65 @@
+﻿@page "/admin/role/users/"
+@model Album.Areas.Admin.Pages.Role.UserModel
+@{
+    ViewData["Title"] = "DANH SÁCH NHÂN VIÊN";
+}
+
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+<table class="table table-striped">
+    <tr>
+        <th>Họ tên</th>
+        <th>Tên người dùng</th>
+        <th>Email</th>
+        <th>Địa chỉ</th>
+        <th>Số điện thoại</th>
+        <th>Quyền</th>
+        <th>Hành động</th>
+    </tr>
+    @foreach (var user in @Model.users)
+    {
+        <tr>
+            <td>@user.FullName</td>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>@user.Address</td>
+            <td>@user.PhoneNumber</td>
+            <td>@user.listroles</td>
+            <td>
+                <form method="POST" class="d-inline">
+                <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm" 
+                        asp-page="./AddUserRole">Cập nhật Role</button>
+                </form>
+                <form method="POST" class="d-inline">
+                    <button name="Input.ID" value="@user.Id" class="btn btn-success btn-sm"
+                        asp-page="./DeleteUser">
+                        Xóa
+                    </button>
+                </form>
+               
+               @*// <a asp-page="./DeleteUser" asp-route-roleid="@user.Id" asp-route-id="@user.Id">Delete</a>*@
+            </td>
+        </tr>
+        
+    }
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+@{
+
+    Func<int?,string> generateUrl = (int? _pagenumber)  => {
+        return Url.Page("./User", new {pageNumber = _pagenumber});
+    };
+
+    var datapaging = new {
+        currentPage = Model.pageNumber,
+        countPages  = Model.totalPages,
+        generateUrl =  generateUrl
+    };
+
+}
+<partial name="_Paging" model="@datapaging" />
