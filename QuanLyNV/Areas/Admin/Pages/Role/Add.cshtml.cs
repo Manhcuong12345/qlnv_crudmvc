@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Album.Areas.Admin.Pages.Role {
+namespace QuanLyNV.Areas.Admin.Pages.Role {
     public class AddModel : PageModel {
         private readonly RoleManager<IdentityRole> _roleManager;
 
@@ -37,12 +37,17 @@ namespace Album.Areas.Admin.Pages.Role {
 
         public IActionResult OnGet () => NotFound ("Không thấy");
         public IActionResult OnPost () => NotFound ("Không thấy");
-        public IActionResult OnPostStartNewRole () {
+
+        //Hien thi thông báo.
+        public IActionResult OnPostStartNewRole()
+        {
             StatusMessage = "Hãy nhập thông tin để tạo role mới";
             IsUpdate = false;
-            ModelState.Clear ();
-            return Page ();
+            ModelState.Clear();
+            return Page();
         }
+
+        //Hiển thị thông tin role cần cập nhập
         public async Task<IActionResult> OnPostStartUpdate () {
             StatusMessage = null;
             IsUpdate = true;
@@ -62,6 +67,7 @@ namespace Album.Areas.Admin.Pages.Role {
             return Page ();
         }
 
+        //Cập nhật và thêm role
         public async Task<IActionResult> OnPostAddOrUpdate () {
 
             if (!ModelState.IsValid) {
@@ -84,6 +90,7 @@ namespace Album.Areas.Admin.Pages.Role {
                         StatusMessage = "Đã cập nhật role thành công";
                     } else {
                         StatusMessage = "Error: ";
+                        //hiển thị báo lỗi
                         foreach (var er in roleUpdateRs.Errors) {
                             StatusMessage += er.Description;
                         }
@@ -101,6 +108,7 @@ namespace Album.Areas.Admin.Pages.Role {
                     return RedirectToPage("./Index");
                 } else {
                     StatusMessage = "Error: ";
+                         //hiển thị báo lỗi
                     foreach (var er in rsNewRole.Errors) {
                         StatusMessage += er.Description;
                     }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Album.Areas.Admin.Pages.Role
+namespace QuanLyNV.Areas.Admin.Pages.Role
 {
  
     public class IndexModel : PageModel
@@ -20,14 +20,14 @@ namespace Album.Areas.Admin.Pages.Role
         {
             _roleManager = roleManager;
         }
-        public List<IdentityRole> roles {set; get;}
+        public List<IdentityRole> Roles {set; get;}
 
         [TempData] // Sử dụng Session lưu thông báo
         public string StatusMessage { get; set; }
  
         public async Task<IActionResult> OnGet()
         {
-            roles  =  await _roleManager.Roles.ToListAsync();
+            Roles =  await _roleManager.Roles.ToListAsync();
             return Page();
         }
     }

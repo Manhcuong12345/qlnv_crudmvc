@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using XTLASPNET;
 
-namespace Album.Areas.Identity.Pages.Account
+namespace QuanLyNV.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LogoutModel : PageModel
@@ -23,7 +23,8 @@ namespace Album.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
         }
-
+        
+        //Đăng xuất người dùng
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             if (!_signInManager.IsSignedIn(User)) return RedirectToPage("/Index");

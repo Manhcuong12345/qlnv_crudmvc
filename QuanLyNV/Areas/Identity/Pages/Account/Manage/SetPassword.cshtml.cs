@@ -8,7 +8,7 @@
 //using Microsoft.AspNetCore.Mvc;
 //using Microsoft.AspNetCore.Mvc.RazorPages;
 
-//namespace Album.Areas.Identity.Pages.Account.Manage
+//namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
 //{
 //    public class SetPasswordModel : PageModel
 //    {

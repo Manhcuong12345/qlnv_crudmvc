@@ -1,5 +1,5 @@
 @page
-@model Album.Areas.Admin.Pages.Role.AddUserRole
+@model QuanLyNV.Areas.Admin.Pages.Role.AddUserRole
 @{
    ViewData["Title"] = "Cập nhật role cho User";
 }
@@ -19,7 +19,7 @@
 
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden"  asp-for="Input.ID">
-            <input type="hidden"  asp-for="isConfirmed">
+            <input type="hidden"  asp-for="IsConfirmed">
             <a class="btn btn-primary" asp-page="./User">Danh sách</a>
             <button type="submit" class="btn btn-danger">Cập nhật</button>
         </form>

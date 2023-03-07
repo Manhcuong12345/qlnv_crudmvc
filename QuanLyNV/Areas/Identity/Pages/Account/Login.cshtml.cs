@@ -14,11 +14,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using XTLASPNET;
 
-namespace Album.Areas.Identity.Pages.Account {
+namespace QuanLyNV.Areas.Identity.Pages.Account {
     [AllowAnonymous]
     public class LoginModel : PageModel {
         [BindProperty]
-        public LoginDto login { get; set; }
+        public LoginDto Login { get; set; }
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
@@ -80,9 +80,9 @@ namespace Album.Areas.Identity.Pages.Account {
 
             if (ModelState.IsValid) {
     
-                IdentityUser user = await _userManager.FindByEmailAsync (login.UserNameOrEmail);
+                IdentityUser user = await _userManager.FindByEmailAsync (Login.UserNameOrEmail);
                 if (user == null) 
-                    user = await _userManager.FindByNameAsync(login.UserNameOrEmail);
+                    user = await _userManager.FindByNameAsync(Login.UserNameOrEmail);
 
                 if (user == null) 
                 {
@@ -92,8 +92,8 @@ namespace Album.Areas.Identity.Pages.Account {
 
                 var result = await _signInManager.PasswordSignInAsync (
                         user.UserName,
-                        login.Password,
-                        login.RememberMe,
+                        Login.Password,
+                        Login.RememberMe,
                         true
                     );
 
@@ -108,7 +108,7 @@ namespace Album.Areas.Identity.Pages.Account {
                 }
                 if (result.RequiresTwoFactor) {
                     // Nếu cấu hình đăng nhập hai yếu tố thì chuyển hướng đến LoginWith2fa
-                    return RedirectToPage ("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = login.RememberMe });
+                    return RedirectToPage ("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Login.RememberMe });
                 }
                 if (result.IsLockedOut) {
                     _logger.LogWarning ("Tài khoản bí tạm khóa.");

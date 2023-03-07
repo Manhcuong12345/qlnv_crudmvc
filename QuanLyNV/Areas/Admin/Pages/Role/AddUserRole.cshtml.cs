@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace Album.Areas.Admin.Pages.Role {
+namespace QuanLyNV.Areas.Admin.Pages.Role {
   public class AddUserRole : PageModel {
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<AppUser> _userManager;
@@ -35,7 +35,7 @@ namespace Album.Areas.Admin.Pages.Role {
     public InputModel Input { set; get; }
 
     [BindProperty]
-    public bool isConfirmed { set; get; }
+    public bool IsConfirmed { set; get; }
 
     [TempData] // Sử dụng Session
     public string StatusMessage { get; set; }
@@ -44,9 +44,9 @@ namespace Album.Areas.Admin.Pages.Role {
 
     public List<string> AllRoles {set; get;} = new List<string>();
 
-    public async Task<IActionResult> OnPost () {
 
-      
+    public async Task<IActionResult> OnPost () {
+      //check Id
       var user = await _userManager.FindByIdAsync (Input.ID);
       if (user == null) {
         return NotFound ("Không thấy role cần xóa");
@@ -55,18 +55,19 @@ namespace Album.Areas.Admin.Pages.Role {
       var roles    = await _userManager.GetRolesAsync(user);
       var allroles = await _roleManager.Roles.ToListAsync();
 
+      //chọn nhiều role 
       allroles.ForEach((r) => {
           AllRoles.Add(r.Name);
       });
 
-      if (!isConfirmed) {
+      if (!IsConfirmed) {
         Input.RoleNames = roles.ToArray();
-        isConfirmed = true;
+        IsConfirmed = true;
         StatusMessage = "";
         ModelState.Clear();
       }
       else {
-        // Update add and remove
+        // Cập nhập và xóa role
         StatusMessage = "Vừa cập nhật";
         if (Input.RoleNames == null) Input.RoleNames = new string[] {};
         foreach (var rolename in Input.RoleNames)

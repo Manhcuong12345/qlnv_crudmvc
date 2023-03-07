@@ -13,13 +13,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using QuanLyNV.Dto;
 
-namespace Album.Areas.Identity.Pages.Account
+namespace QuanLyNV.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
         [BindProperty]
-        public EmailDto emailDto { get; set; }
+        public EmailDto EmailDto { get; set; }
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailSender _emailSender;
 
@@ -44,7 +44,7 @@ namespace Album.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(emailDto.Email);
+                var user = await _userManager.FindByEmailAsync(EmailDto.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     return RedirectToPage("./ForgotPasswordConfirmation");
@@ -63,7 +63,7 @@ namespace Album.Areas.Identity.Pages.Account
 
                 // Gửi email
                 await _emailSender.SendEmailAsync(
-                    emailDto.Email,
+                    EmailDto.Email,
                     "Đặt lại mật khẩu mới",
                     $"Để đặt lại mật khẩu hãy <a href='{callbackUrl}'>bấm vào đây</a>.");
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace mvcblog.Models
+namespace QuanLyNV.Models
 {
     public class ErrorViewModel
     {

@@ -10,7 +10,7 @@ public class UserDto
 
     [BindProperty]
     [Display(Name = "Tên tài khoản")]
-    public string Username { get; set; }
+    public string UserName { get; set; }
 
     [BindProperty]
     [Phone]
@@ -37,6 +37,8 @@ public class UserDto
     [BindProperty]
     [Display(Name = "Giới tính")]
     public string Gender { set; get; }
+
+    public string RoleName { get; set; }
 
 }
 

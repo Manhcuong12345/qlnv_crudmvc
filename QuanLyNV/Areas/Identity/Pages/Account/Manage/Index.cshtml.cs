@@ -15,7 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using AutoMapper;
 
-namespace Album.Areas.Identity.Pages.Account.Manage {
+namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
 
     [Authorize]
     public partial class IndexModel : PageModel {
@@ -89,17 +89,18 @@ namespace Album.Areas.Identity.Pages.Account.Manage {
         {
             var user = await _userManager.GetUserAsync(User);
             //su dung mapper
-            userDto = _mapper.Map<UserDto>(user);
+           userDto = _mapper.Map<UserDto>(user);
 
             if (user == null)
             {
                 return NotFound($"Không tải được tài khoản ID = '{_userManager.GetUserId(User)}'.");
             }
 
-            //await LoadAsync(data);
+            //await LoadAsync();
             return Page();
         }
 
+        //Cập nhập dữ liệu
         public async Task<IActionResult> OnPostAsync () {
             var user = await _userManager.GetUserAsync (User);
             
@@ -115,21 +116,22 @@ namespace Album.Areas.Identity.Pages.Account.Manage {
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync (user);
             //kiểm tra số đt có trùng hay khồng
-            if (userDto.PhoneNumber != phoneNumber) {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync (user, userDto.PhoneNumber);
-                if (!setPhoneResult.Succeeded) {
+            if (userDto.PhoneNumber != phoneNumber)
+            {
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, userDto.PhoneNumber);
+                if (!setPhoneResult.Succeeded)
+                {
                     StatusMessage = "Lỗi cập nhật số điện thoại.";
-                    return RedirectToPage ();
+                    return RedirectToPage();
                 }
             }
-
 
             //Cập nhật các trường bổ sung
             user.Address = userDto.Address;
             user.Birthday = userDto.Birthday;
             user.FullName = userDto.FullName;
             user.Gender = userDto.Gender;
-            
+
             await _userManager.UpdateAsync(user);
 
             // Đăng nhập lại để làm mới Cookie (không nhớ thông tin cũ)

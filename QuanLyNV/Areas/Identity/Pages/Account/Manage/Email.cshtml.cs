@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using QuanLyNV.Dto;
 
-namespace Album.Areas.Identity.Pages.Account.Manage
+namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
 {
     public partial class EmailModel : PageModel
     {

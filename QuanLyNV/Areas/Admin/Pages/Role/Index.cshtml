@@ -1,4 +1,5 @@
 ﻿@page "/admin/role/"
+@using QuanLyNV.Areas.Admin.Pages.Role;
 @model IndexModel
 
 <h3>Danh sách các role</h1>
@@ -16,25 +17,18 @@
     <th>Tên</th>
     <th>Tác vụ</th>
   </tr>
-  @foreach (var role in @Model.roles)
-  {
+        @foreach (var role in @Model.Roles)
+        {
       <tr>
         <td>@role.Name</td>
         <td>
             <form method="POST" class="d-inline">
-              <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm" 
+              <button name="Input.ID" value="@role.Id" class="btn btn-primary btn-sm" 
                       asp-page="./Add" asp-page-handler="StartUpdate">Cập nhật Role</button>
             </form>
 
-            
-
-           @* <a name="rolename"  class="btn btn-success btn-sm" 
-                      asp-route-roleid ="@role.Id"
-                      asp-area="Admin"
-                      asp-page="/RoleClaims/Index">Claims</a>*@
-
             <form method="POST" class="d-inline">
-              <button name="Input.ID" value="@role.Id" class="btn btn-success btn-sm" 
+              <button name="Input.ID" value="@role.Id" class="btn btn-danger btn-sm" 
                       asp-page="./Delete">Xóa Role</button>
             </form>
 

@@ -16,13 +16,13 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
 
-namespace Album.Areas.Identity.Pages.Account
+namespace QuanLyNV.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         [BindProperty]
-        public RegisterDto register { get; set; }
+        public RegisterDto Register { get; set; }
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -65,8 +65,8 @@ namespace Album.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 // Tạo AppUser sau đó tạo User mới (cập nhật vào db)
-                var user = new AppUser { UserName = register.UserName, Email = register.Email };
-                var result = await _userManager.CreateAsync(user, register.Password);
+                var user = new AppUser { UserName = Register.UserName, Email = Register.Email };
+                var result = await _userManager.CreateAsync(user, Register.Password);
 
                 if (result.Succeeded)
                 {
@@ -87,14 +87,14 @@ namespace Album.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     // Gửi email    
-                    await _emailSender.SendEmailAsync(register.Email, "Xác nhận địa chỉ email",
+                    await _emailSender.SendEmailAsync(Register.Email, "Xác nhận địa chỉ email",
                         $"Hãy xác nhận địa chỉ email bằng cách <a href='{callbackUrl}'>Bấm vào đây</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedEmail)
                     {
                         // Nếu cấu hình phải xác thực email mới được đăng nhập thì chuyển hướng đến trang
                         // RegisterConfirmation - chỉ để hiện thông báo cho biết người dùng cần mở email xác nhận
-                        return RedirectToPage("RegisterConfirmation", new { email = register.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new { email = Register.Email, returnUrl = returnUrl });
                     }
                     else
                     {

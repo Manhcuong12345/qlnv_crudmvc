@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using XTLASPNET;
 
-namespace Album.Areas.Identity.Pages.Account {
+namespace QuanLyNV.Areas.Identity.Pages.Account {
     [AllowAnonymous]
     public class ConfirmEmailModel : PageModel {
         private readonly UserManager<AppUser> _userManager;

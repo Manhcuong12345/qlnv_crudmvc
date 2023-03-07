@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using XTLASPNET;
 
-namespace Album.Areas.Identity.Pages.Account {
+namespace QuanLyNV.Areas.Identity.Pages.Account {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel {
         private readonly SignInManager<AppUser> _signInManager;

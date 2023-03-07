@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Album.Areas.Admin.Pages.Role
+namespace QuanLyNV.Areas.Admin.Pages.Role
 {
     public class DeleteUserModel : PageModel
     {
@@ -33,7 +33,7 @@ namespace Album.Areas.Admin.Pages.Role
         public InputModel Input { set; get; }
 
         [BindProperty]
-        public bool isConfirmed { set; get; }
+        public bool IsConfirmed { set; get; }
 
         [TempData] // Sử dụng Session
         public string StatusMessage { get; set; }
@@ -51,12 +51,12 @@ namespace Album.Areas.Admin.Pages.Role
             var user = await _userManager.FindByIdAsync(Input.ID);
             if (user == null)
             {
-                return NotFound("Không thấy role cần xóa");
+                return NotFound("Không thấy user cần xóa");
             }
 
             ModelState.Clear();
 
-            if (isConfirmed)
+            if (IsConfirmed)
             {
                 //Xóa
                 await _userManager.DeleteAsync(user);
@@ -67,7 +67,7 @@ namespace Album.Areas.Admin.Pages.Role
             else
             {
                 Input.UserName = user.UserName;
-                isConfirmed = true;
+                IsConfirmed = true;
 
             }
 
