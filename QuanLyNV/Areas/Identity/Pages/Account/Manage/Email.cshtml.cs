@@ -18,7 +18,7 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
     public partial class EmailModel : PageModel
     {
         [BindProperty]
-        public EmailDto emailDto { get; set; }
+        public EmailDto EmailDto { get; set; }
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
@@ -58,12 +58,12 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             Email = email;
 
-            emailDto = new EmailDto
+            EmailDto = new EmailDto
             {
                 NewEmail = email,
             };
 
-            emailDto.IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            EmailDto.IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -93,26 +93,26 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
             }
 
             var email = await _userManager.GetEmailAsync(user);
-            if (emailDto.NewEmail != email)
+            if (EmailDto.NewEmail != email)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, emailDto.NewEmail);
+                var code = await _userManager.GenerateChangeEmailTokenAsync(user, EmailDto.NewEmail);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes (code));
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmailChange",
                     pageHandler: null,
-                    values: new { userId = userId, email = emailDto.NewEmail, code = code },
+                    values: new { userId = userId, email = EmailDto.NewEmail, code = code },
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
-                    emailDto.NewEmail,
+                    EmailDto.NewEmail,
                     "Xác nhận",
                     $"Hãy xác nhận Email của bạn bằng cách <a href='{callbackUrl}'>bấm vào đây</a>.");
 
-                emailDto.StatusMessage = "Hãy mở email để xác nhận thay đổi";
+                EmailDto.StatusMessage = "Hãy mở email để xác nhận thay đổi";
                 return RedirectToPage();
             }
 
-            emailDto.StatusMessage = "Bạn đã thay đổi email.";
+            EmailDto.StatusMessage = "Bạn đã thay đổi email.";
             return RedirectToPage();
         }
 
@@ -145,7 +145,7 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
                 "Xác nhận Email",
                 $"Xác nhận email <a href='{callbackUrl}'>bấm vào đây</a>.");
 
-            emailDto.StatusMessage = "Hãy mở email để xác nhận";
+            EmailDto.StatusMessage = "Hãy mở email để xác nhận";
             return RedirectToPage();    
         }
 

@@ -14,7 +14,7 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
     public class ChangePasswordModel : PageModel
     {
         [BindProperty]
-        public ChangePasswordDto changePasswordDto { get; set; }
+        public ChangePasswordDto ChangePasswordDto { get; set; }
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
@@ -84,7 +84,7 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Lỗi nạp User với ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, changePasswordDto.OldPassword, changePasswordDto.NewPassword);
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, ChangePasswordDto.OldPassword, ChangePasswordDto.NewPassword);
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)

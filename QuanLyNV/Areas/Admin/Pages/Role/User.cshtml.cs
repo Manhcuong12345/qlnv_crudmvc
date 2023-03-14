@@ -28,7 +28,7 @@ namespace QuanLyNV.Areas.Admin.Pages.Role {
             _mapper = mapper;
         }
 
-        public List<UserDto> users;
+        public List<UserDto> Users;
         public int TotalPages {set; get;}
 
         [TempData] //Sử dụng Session
@@ -42,20 +42,20 @@ namespace QuanLyNV.Areas.Admin.Pages.Role {
         //Lấy thông tin cần hiển thị ra giao diện người dùng
         public async Task<IActionResult> OnGet() {
             var listUser = _userManager.Users.OrderByDescending(x => x.Id);
-            const int User_Page = 5;
+            const int USER_PAGE = 5;
 
             int totalUsers = await listUser.CountAsync();
-            TotalPages = (int)Math.Ceiling((double)totalUsers / User_Page);
+            TotalPages = (int)Math.Ceiling((double)totalUsers / USER_PAGE);
 
             if (PageNumber < 1)
                 PageNumber = 1;
             if (PageNumber > TotalPages)
                 PageNumber = PageNumber;
 
-            var queryData = listUser.Skip(User_Page * (PageNumber - 1)).Take(User_Page);
+            var queryData = listUser.Skip(USER_PAGE * (PageNumber - 1)).Take(USER_PAGE);
             //users = await queryData.ToListAsync();
             //Su dung Mapper 
-            users = _mapper.Map<List<UserDto>>(queryData);
+            Users = _mapper.Map<List<UserDto>>(queryData);
 
             return Page();
         }

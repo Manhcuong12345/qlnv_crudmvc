@@ -14,24 +14,29 @@ using System.IO;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using AutoMapper;
+using QuanLyNV.Dto;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
 
     [Authorize]
     public partial class IndexModel : PageModel {
         [BindProperty]
-        public UserDto userDto { get; set; }
+        public UserDto UserDto { get; set; }
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _env;
 
         public IndexModel (
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            IMapper mapper) {
+            IMapper mapper,
+            IWebHostEnvironment env) {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _env = env;
         }
 
         //[Display(Name = "Tên tài khoản")]
@@ -81,7 +86,7 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
             //    //Poster = user.Poster
             //};
             //Su dung mapper 
-            userDto = _mapper.Map<UserDto>(user);
+            UserDto = _mapper.Map<UserDto>(user);
         }
 
         //Hien thi thong tin
@@ -89,7 +94,7 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
         {
             var user = await _userManager.GetUserAsync(User);
             //su dung mapper
-           userDto = _mapper.Map<UserDto>(user);
+           UserDto = _mapper.Map<UserDto>(user);
 
             if (user == null)
             {
@@ -116,9 +121,9 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync (user);
             //kiểm tra số đt có trùng hay khồng
-            if (userDto.PhoneNumber != phoneNumber)
+            if (UserDto.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, userDto.PhoneNumber);
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, UserDto.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
                     StatusMessage = "Lỗi cập nhật số điện thoại.";
@@ -126,11 +131,19 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
                 }
             }
 
+            //Check file
+            if (UserDto.Avatar != null)
+            {
+                string ExitingFile = Path.Combine(_env.WebRootPath, "picture", UserDto.Avatar);
+                System.IO.File.Delete(ExitingFile);
+            }
+
             //Cập nhật các trường bổ sung
-            user.Address = userDto.Address;
-            user.Birthday = userDto.Birthday;
-            user.FullName = userDto.FullName;
-            user.Gender = userDto.Gender;
+            user.Address = UserDto.Address;
+            user.Birthday = UserDto.Birthday;
+            user.FullName = UserDto.FullName;
+            user.Gender = UserDto.Gender;
+            user.Avatar = UploadFile(UserDto.PhotoPath);
 
             await _userManager.UpdateAsync(user);
 
@@ -138,6 +151,23 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
             await _signInManager.RefreshSignInAsync (user);
             StatusMessage = "Hồ sơ của bạn đã cập nhật";
             return RedirectToPage ();
+        }
+
+        //Function xu ly file
+        private string UploadFile(IFormFile formFile)
+        {
+            // Hình ảnh phải được tải lên thư mục hình ảnh trong wwwroot
+            // Để lấy đường dẫn của thư mục wwwroot, chúng tôi đang sử dụng dịch vụ HostingEnvironment do ASP.NET Cor cung cấp
+            // Nếu bạn muốn tên tệp là duy nhất thì chúng tôi sẽ thêm một giá trị GUID mới và một dấu gạch dưới vào tên tệp
+            string UniqueFileName = Guid.NewGuid().ToString() + "-" + formFile.FileName;
+            string TargetPath = Path.Combine(_env.WebRootPath, "picture", UniqueFileName);
+           // Sử dụng phương thức CopyTo() do giao diện IFormFile cung cấp để
+            // // copy file vào thư mục wwwroot/picture
+            using (var stream = new FileStream(TargetPath, FileMode.Create))
+            {
+                formFile.CopyTo(stream);
+            }
+            return UniqueFileName;
         }
     }
 }

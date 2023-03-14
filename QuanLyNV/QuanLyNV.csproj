@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20230306042813_updateGenderMigration.Designer.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\picture\no-image.png" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
@@ -34,6 +38,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.8" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.8" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
 		<PackageReference Include="MimeKit" Version="2.9.2" />
@@ -41,6 +46,14 @@
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
 		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
 		<PackageReference Include="System.Linq" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Areas\Admin\Pages\Role\Picture\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\picture\no-image.png" />
 	</ItemGroup>
 
 </Project>

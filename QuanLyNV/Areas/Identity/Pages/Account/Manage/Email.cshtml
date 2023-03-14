@@ -14,7 +14,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                @if (Model.emailDto.IsEmailConfirmed)
+                @if (Model.EmailDto.IsEmailConfirmed)
                 {
                     <div class="input-group">
                         <input asp-for="Email" class="form-control" disabled />
@@ -30,9 +30,9 @@
                 }
             </div>
             <div class="form-group">
-                <label asp-for="emailDto.NewEmail"></label>
-                <input asp-for="emailDto.NewEmail" class="form-control" />
-                <span asp-validation-for="emailDto.NewEmail" class="text-danger"></span>
+                <label asp-for="EmailDto.NewEmail"></label>
+                <input asp-for="EmailDto.NewEmail" class="form-control" />
+                <span asp-validation-for="EmailDto.NewEmail" class="text-danger"></span>
             </div>
             <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">Đổi Email</button>
         </form>

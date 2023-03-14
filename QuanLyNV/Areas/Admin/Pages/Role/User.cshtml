@@ -2,6 +2,7 @@
 @model QuanLyNV.Areas.Admin.Pages.Role.UserModel
 @{
     ViewData["Title"] = "DANH SÁCH NHÂN VIÊN";
+   
 }
 
 
@@ -15,16 +16,21 @@
         <th>Địa chỉ</th>
         <th>Số điện thoại</th>
         <th>Giới tính</th>
+        <th>Ảnh</th>
         <th>Hành động</th>
     </tr>
-    @foreach (var user in @Model.users)
+    @foreach (var user in @Model.Users)
     {
+        var imgPath = "~/picture/" + (user.Avatar ?? "no-image.png");
         <tr>
             <td>@user.FullName</td>
             <td>@user.UserName</td>
             <td>@user.Address</td>
             <td>@user.PhoneNumber</td>
             <td>@user.Gender</td>
+            <td>
+                <img src="@imgPath" height="110px;" width="120px;" asp-append-version="true"/>
+            </td>
             <td>
                 <form method="POST" class="d-inline">
                 <button name="Input.ID" value="@user.Id" class="btn btn-primary btn-sm" 

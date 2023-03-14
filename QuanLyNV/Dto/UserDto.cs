@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class UserDto
 { 
@@ -38,7 +40,14 @@ public class UserDto
     [Display(Name = "Giới tính")]
     public string Gender { set; get; }
 
-    public string RoleName { get; set; }
+    [MaxLength(255)]
+    public string Avatar { set; get; }
+
+    [BindProperty]
+    [NotMapped]
+    [Display(Name = "Ảnh đại diện")]
+    public IFormFile PhotoPath { set; get; }
+
 
 }
 
