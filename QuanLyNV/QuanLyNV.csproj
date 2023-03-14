@@ -49,10 +49,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Areas\Admin\Pages\Role\Picture\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Include="wwwroot\picture\no-image.png" />
 	</ItemGroup>
 
