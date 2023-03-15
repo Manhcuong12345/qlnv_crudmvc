@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using QuanLyNV.Models;
+using Microsoft.Extensions.Hosting;
 
 namespace QuanLyNV.Data {
         public class AppDbContext : IdentityDbContext<AppUser> {
 
         public AppDbContext (DbContextOptions<AppDbContext> options) : base (options) { }
+
+        public DbSet<Ticket> Ticket { get; set; }
 
         protected override void OnModelCreating (ModelBuilder builder) {
 
@@ -18,6 +21,8 @@ namespace QuanLyNV.Data {
                 }
             }
         }
+
+
 
     }
 

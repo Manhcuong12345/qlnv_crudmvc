@@ -99,7 +99,7 @@ namespace QuanLyNV.Areas.Identity.Pages.Account
                     else
                     {
                         // Không cần xác thực - đăng nhập luôn
-                        await _signInManager.SignInAsync(user, isPersistent: true);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }

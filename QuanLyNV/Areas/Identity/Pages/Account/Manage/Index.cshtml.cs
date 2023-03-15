@@ -131,12 +131,12 @@ namespace QuanLyNV.Areas.Identity.Pages.Account.Manage {
                 }
             }
 
-            //Check file
-            if (UserDto.Avatar != null)
-            {
-                string ExitingFile = Path.Combine(_env.WebRootPath, "picture", UserDto.Avatar);
-                System.IO.File.Delete(ExitingFile);
-            }
+            ////Check file
+            //if (UserDto.Avatar != null)
+            //{
+            //    string ExitingFile = Path.Combine(_env.WebRootPath, "picture", UserDto.Avatar);
+            //    System.IO.File.Delete(ExitingFile);
+            //}
 
             //Cập nhật các trường bổ sung
             user.Address = UserDto.Address;

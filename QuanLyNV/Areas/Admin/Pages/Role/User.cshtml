@@ -16,7 +16,7 @@
         <th>Địa chỉ</th>
         <th>Số điện thoại</th>
         <th>Giới tính</th>
-        <th>Ảnh</th>
+        <th>Ảnh đại diện</th>
         <th>Hành động</th>
     </tr>
     @foreach (var user in @Model.Users)
@@ -29,7 +29,7 @@
             <td>@user.PhoneNumber</td>
             <td>@user.Gender</td>
             <td>
-                <img src="@imgPath" height="110px;" width="120px;" asp-append-version="true"/>
+                <img src="@imgPath" height="140px;" width="130px;" asp-append-version="true"/>
             </td>
             <td>
                 <form method="POST" class="d-inline">

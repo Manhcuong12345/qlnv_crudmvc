@@ -9,6 +9,7 @@ namespace QuanLyNV.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<AppUser,UserDto>().ReverseMap();
+            CreateMap<Ticket, TicketDto>().ReverseMap();
         }
     }
 }
